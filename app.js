@@ -2,7 +2,13 @@ const express = require("express");
 const nunjucks = require("nunjucks");
 const app = express();
 const routes = require("./routes");
+const bodyParser = require("body-parser");
+var socketio = require('socket.io');
+// ...
 
+
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 app.set('view engine', 'html');
 app.engine("html", nunjucks.render);
 nunjucks.configure("views", { noCache: true} );
@@ -15,7 +21,9 @@ app.use((req, res, next) => {
 
 app.use(express.static("public"));
 
-app.use("/", routes);
+var server = app.listen(3000, () => console.log("Twitter.js listening on port 3000."))
+var io = socketio.listen(server);
+app.use("/", routes(io));
 
 // let tweetBank = require("./tweetBank");
 // app.get("/tweets", (req, res, next) => {
@@ -35,4 +43,5 @@ app.use("/", routes);
 //     res.send("Under construction");
 // })
 
-app.listen(3000, () => console.log("Twitter.js listening on port 3000."))
+
+

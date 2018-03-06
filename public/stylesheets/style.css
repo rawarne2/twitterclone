@@ -57,3 +57,15 @@ code {
 .content .by {
   font-weight: bold;
 }
+
+.tweetcontainer {
+  margin: 8px;
+  border: .5px rgb(0, 71, 138) solid;
+  border-radius: 3px;
+  color: rgb(70, 128, 235)
+}
+
+.tweetname {
+  font-size: 120%
+}
+
